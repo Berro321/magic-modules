@@ -12,7 +12,7 @@
 # limitations under the License.
 
 ---
-name: Application
+name: SecurityGatewayApplication
 description: Specifies application endpoint(s) to protect behind a Security Gateway.
 base_url: projects/{{project}}/locations/global/securityGateways/{{security_gateways_id}}/applications
 update_mask: true

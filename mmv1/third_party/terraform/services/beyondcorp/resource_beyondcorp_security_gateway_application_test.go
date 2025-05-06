@@ -9,7 +9,7 @@ import (
 	"github.com/hashicorp/terraform-provider-google/google/acctest"
 )
 
-func TestAccBeyondcorpApplication_beyondcorpSecurityGatewayApplicationBasicExample_update(t *testing.T) {
+func TestAccBeyondcorpSecurityGatewayApplication_beyondcorpSecurityGatewayApplicationBasicExample_update(t *testing.T) {
 	t.Parallel()
 
 	context := map[string]interface{}{
@@ -21,10 +21,10 @@ func TestAccBeyondcorpApplication_beyondcorpSecurityGatewayApplicationBasicExamp
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories(t),
 		Steps: []resource.TestStep{
 			{
-				Config: testAccBeyondcorpApplication_beyondcorpSecurityGatewayApplicationBasicExample_basic(context),
+				Config: testAccBeyondcorpSecurityGatewayApplication_beyondcorpSecurityGatewayApplicationBasicExample_basic(context),
 			},
 			{
-				ResourceName:            "google_beyondcorp_application.example",
+				ResourceName:            "google_beyondcorp_security_gateway_application.example",
 				ImportState:             true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"application_id", "security_gateways_id"},
@@ -33,12 +33,12 @@ func TestAccBeyondcorpApplication_beyondcorpSecurityGatewayApplicationBasicExamp
 				Config: testAccBeyondcorpApplication_beyondcorpSecurityGatewayApplicationBasicExample_update(context),
 				ConfigPlanChecks: resource.ConfigPlanChecks{
 					PreApply: []plancheck.PlanCheck{
-						plancheck.ExpectResourceAction("google_beyondcorp_application.example", plancheck.ResourceActionUpdate),
+						plancheck.ExpectResourceAction("google_beyondcorp_security_gateway_application.example", plancheck.ResourceActionUpdate),
 					},
 				},
 			},
 			{
-				ResourceName:            "google_beyondcorp_application.example",
+				ResourceName:            "google_beyondcorp_security_gateway_application.example",
 				ImportState:             true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"application_id", "security_gateways_id"},
@@ -47,7 +47,7 @@ func TestAccBeyondcorpApplication_beyondcorpSecurityGatewayApplicationBasicExamp
 	})
 }
 
-func testAccBeyondcorpApplication_beyondcorpSecurityGatewayApplicationBasicExample_basic(context map[string]interface{}) string {
+func testAccBeyondcorpSecurityGatewayApplication_beyondcorpSecurityGatewayApplicationBasicExample_basic(context map[string]interface{}) string {
 	return acctest.Nprintf(`
 resource "google_beyondcorp_security_gateway" "default" {
   security_gateway_id = "default%{random_suffix}"
@@ -55,7 +55,7 @@ resource "google_beyondcorp_security_gateway" "default" {
   hubs { region = "us-central1" }
 }
 
-resource "google_beyondcorp_application" "example" {
+resource "google_beyondcorp_security_gateway_application" "example" {
   security_gateways_id = google_beyondcorp_security_gateway.default.security_gateway_id
   application_id = "google%{random_suffix}"
   endpoint_matchers {
@@ -65,7 +65,7 @@ resource "google_beyondcorp_application" "example" {
 `, context)
 }
 
-func testAccBeyondcorpApplication_beyondcorpSecurityGatewayApplicationBasicExample_update(context map[string]interface{}) string {
+func testAccBeyondcorpSecurityGatewayApplication_beyondcorpSecurityGatewayApplicationBasicExample_update(context map[string]interface{}) string {
 	return acctest.Nprintf(`
 resource "google_beyondcorp_security_gateway" "default" {
   security_gateway_id = "default%{random_suffix}"
@@ -73,7 +73,7 @@ resource "google_beyondcorp_security_gateway" "default" {
   hubs { region = "us-central1" }
 }
 
-resource "google_beyondcorp_application" "example" {
+resource "google_beyondcorp_security_gateway_application" "example" {
   security_gateways_id = google_beyondcorp_security_gateway.default.security_gateway_id
   display_name = "Updated Name"
   application_id = "google%{random_suffix}"
